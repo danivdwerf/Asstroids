@@ -1,0 +1,152 @@
+fileFormatVersion: 2
+guid: 4a92bc28417b343b7a0eba56ec5a0d8d
+timeCreated: 1466087717
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Boole
+    100004: Cube
+    100006: Cylinder
+    100008: Cylinder_1
+    100010: Cylinder_2
+    100012: Cylinder_2_2
+    100014: Cylinder_3
+    100016: la
+    100018: onder
+    100020: onder_1
+    100022: onder_1_2
+    100024: onder_2
+    100026: onder_2_2
+    100028: onder_3
+    100030: Sphere
+    100032: spijlen
+    100034: voor
+    100036: zeikanten
+    400000: //RootNode
+    400002: Boole
+    400004: Cube
+    400006: Cylinder
+    400008: Cylinder_1
+    400010: Cylinder_2
+    400012: Cylinder_2_2
+    400014: Cylinder_3
+    400016: la
+    400018: onder
+    400020: onder_1
+    400022: onder_1_2
+    400024: onder_2
+    400026: onder_2_2
+    400028: onder_3
+    400030: Sphere
+    400032: spijlen
+    400034: voor
+    400036: zeikanten
+    2300000: Cube
+    2300002: Cylinder
+    2300004: Cylinder_1
+    2300006: Cylinder_2
+    2300008: Cylinder_2_2
+    2300010: Cylinder_3
+    2300012: onder
+    2300014: onder_1
+    2300016: onder_1_2
+    2300018: onder_2
+    2300020: onder_2_2
+    2300022: onder_3
+    2300024: Sphere
+    2300026: voor
+    3300000: Cube
+    3300002: Cylinder
+    3300004: Cylinder_1
+    3300006: Cylinder_2
+    3300008: Cylinder_2_2
+    3300010: Cylinder_3
+    3300012: onder
+    3300014: onder_1
+    3300016: onder_1_2
+    3300018: onder_2
+    3300020: onder_2_2
+    3300022: onder_3
+    3300024: Sphere
+    3300026: voor
+    4300000: Sphere
+    4300002: Cylinder
+    4300004: onder_1
+    4300006: onder_2
+    4300008: onder
+    4300010: onder_3
+    4300012: onder_2_2
+    4300014: onder_1_2
+    4300016: voor
+    4300018: Cube
+    4300020: Cylinder_3
+    4300022: Cylinder_2
+    4300024: Cylinder_2_2
+    4300026: Cylinder_1
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
