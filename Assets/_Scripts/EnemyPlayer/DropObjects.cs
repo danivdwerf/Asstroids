@@ -1,14 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
+//using UnityEngine.UI;
 
 public class DropObjects : MonoBehaviour 
 {
-    [SerializeField] private Sprite closed;
-    [SerializeField] private Sprite open;
-    private CrossHair crossHair; 
-    private SpriteRenderer crossSprite;
+    private CrossHair crossHair;
 
     private AudioSource audioPlay;
     [SerializeField] private AudioClip babyClip;
@@ -19,33 +16,20 @@ public class DropObjects : MonoBehaviour
 	private GameObject astroid;
 	public bool astroidSpawn;
     public float astroidTimer;
-	private float timeForAstroid = 4f;
-    private float closeHand=15;
-    private bool openHand;
+    public float timeForAstroid = 4f;
 
 	public bool spawnRain;
-	private float rainTimer;
-	private float timeForRain = 5f;
-    [SerializeField] private Image blockDark1;
-    [SerializeField] private Image blockDark2;
-    [SerializeField] private Image beadsDark1;
-    [SerializeField] private Image beadsDark2;
+    public float rainTimer;
+    public float timeForRain = 5f;
 
 	void Start()
 	{
 		astroidSpawn = true;
         spawnRain = true;
-        openHand = false;
         crossHair = GameObject.FindObjectOfType<CrossHair>();
-        crossSprite = crossHair.GetComponent<SpriteRenderer>();
-        crossSprite.sprite = closed;
 
-        audioPlay=GetComponent<AudioSource>();
 
-        blockDark1.fillAmount = astroidTimer/timeForAstroid;
-        blockDark2.fillAmount = astroidTimer/timeForAstroid;
-        beadsDark1.fillAmount = rainTimer/timeForRain;
-        beadsDark2.fillAmount = rainTimer/timeForRain;
+        audioPlay = GetComponent<AudioSource>();
 		
 		rainTimer = timeForRain;
         astroidTimer = timeForAstroid;
@@ -74,8 +58,6 @@ public class DropObjects : MonoBehaviour
 		if (astroidSpawn == false) 
 		{
 			astroidTimer -= Time.deltaTime;
-            blockDark1.fillAmount = astroidTimer/timeForAstroid;
-            blockDark2.fillAmount = astroidTimer/timeForAstroid;
 		}
 
 		if (astroidTimer <= 0)
@@ -87,8 +69,6 @@ public class DropObjects : MonoBehaviour
 		if (spawnRain == false) 
 		{
 			rainTimer -= Time.deltaTime;
-            beadsDark1.fillAmount = rainTimer/timeForRain;
-            beadsDark2.fillAmount = rainTimer/timeForRain;
 		}
 
 		if (rainTimer <= 0)
@@ -96,32 +76,18 @@ public class DropObjects : MonoBehaviour
 			spawnRain = true;
 			rainTimer = timeForRain;
 		}
-
-        if (closeHand == 0)
-        {
-            crossSprite.sprite = closed;
-            openHand = false;
-            closeHand = 15;
-        }
-
-        if (openHand == true)
-        {
-            closeHand--;
-        }
     }
 
 	public void MakeItRain()
 	{
 		astroid = (GameObject) Instantiate (spawnPrefab[1], spawnLocation.position, Quaternion.identity);
-        crossSprite.sprite = open;
-        openHand = true;
         audioPlay.PlayOneShot(babyClip);
+        crossHair.Open();
 	} 
 
 	public void SpawnAstroid()
 	{
 		astroid = (GameObject) Instantiate (spawnPrefab[0], spawnLocation.position, Quaternion.identity);
-        crossSprite.sprite = open;
-        openHand = true;
+        crossHair.Open();
 	}
 }
