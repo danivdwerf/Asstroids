@@ -11,11 +11,6 @@ public class BlockFall:MonoBehaviour
         audioSource = GetComponent<AudioSource>();
 	}
 
-	void Update () 
-    {
-	   
-	}
-
     void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Room"))

@@ -47,20 +47,17 @@ public class CarController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (drive)
-        {
-            right = Mathf.Clamp(Input.GetAxis("RightTrigger"), 0, 1);
-            motor = maxTorque * right;
-            left = Mathf.Clamp(Input.GetAxis("LeftTrigger"), 0, 1);
-            reverse = maxTorque * left;
+    	right = Mathf.Clamp(Input.GetAxis("RightTrigger"), 0, 1);
+        motor = maxTorque * right;
+        left = Mathf.Clamp(Input.GetAxis("LeftTrigger"), 0, 1);
+        reverse = maxTorque * left;
 
-            driving = motor - (reverse / 2.92f);
-            rigidBody.MovePosition(transform.position + transform.forward * driving * Time.deltaTime);
+        driving = motor - (reverse / 2.92f);
+        rigidBody.MovePosition(transform.position + transform.forward * driving * Time.deltaTime);
 
-            steering = maxSteeringAngle * Input.GetAxis("LeftJoystickHorizontal");
-            wheelRotationY += steering * 4;
-            wheelRotationY = Mathf.Clamp(wheelRotationY, -40, 40);
-        }
+        steering = maxSteeringAngle * Input.GetAxis("LeftJoystickHorizontal");
+        wheelRotationY += steering * 4;
+        wheelRotationY = Mathf.Clamp(wheelRotationY, -40, 40);
            
 		if(driving!=0)
         {
