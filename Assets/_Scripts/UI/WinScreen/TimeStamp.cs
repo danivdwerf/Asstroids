@@ -49,9 +49,9 @@ public class TimeStamp : MonoBehaviour
                 
             player.gameObject.transform.position = carPos;
             player.gameObject.transform.rotation = carRot;
-            player.motor = 0;
-            player.steering = 0;
-            player.reverse = 0;
+            HandleInput.inputH.motor = 0;
+            HandleInput.inputH.steering = 0;
+            HandleInput.inputH.reverse = 0;
             player.drive = false;
 		}
 		if (other.CompareTag("Player2")) 

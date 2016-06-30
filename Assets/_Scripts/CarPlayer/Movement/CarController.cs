@@ -16,17 +16,6 @@ public class CarController : MonoBehaviour
     public List<WheelMesh> wheelMeshes;
     private Rigidbody rigidBody;
 
-    private float maxTorque=10f;
-    private float maxSteeringAngle = 2f;
-
-	public float motor;
-    public float reverse;
-    public float steering;
-	public float driving;
-
-	private float right;
-	private float left;
-
     private float wheelRotationY;
     private float wheelRotationZ = 0;
 
@@ -47,27 +36,21 @@ public class CarController : MonoBehaviour
 
     void FixedUpdate()
     {
-    	right = Mathf.Clamp(Input.GetAxis("RightTrigger"), 0, 1);
-        motor = maxTorque * right;
-        left = Mathf.Clamp(Input.GetAxis("LeftTrigger"), 0, 1);
-        reverse = maxTorque * left;
 
-        driving = motor - (reverse / 2.92f);
-        rigidBody.MovePosition(transform.position + transform.forward * driving * Time.deltaTime);
+        rigidBody.MovePosition(transform.position + transform.forward * HandleInput.inputH.driving * Time.deltaTime);
 
-        steering = maxSteeringAngle * Input.GetAxis("LeftJoystickHorizontal");
-        wheelRotationY += steering * 4;
+        wheelRotationY += HandleInput.inputH.steering * 4; 
         wheelRotationY = Mathf.Clamp(wheelRotationY, -40, 40);
            
-		if(driving!=0)
+        if(HandleInput.inputH.driving!=0)
         {
-            rigidBody.transform.Rotate(0f, driving > 0 ? steering : -steering, 0f);
+            rigidBody.transform.Rotate(0f, HandleInput.inputH.driving > 0 ? HandleInput.inputH.steering : -HandleInput.inputH.steering, 0f);
         }
-        if(steering==0&&wheelRotationY>0)
+        if(HandleInput.inputH.steering==0&&wheelRotationY>0)
         {
             wheelRotationY-=3;
         }
-        if(steering==0&&wheelRotationY<0)
+        if(HandleInput.inputH.steering==0&&wheelRotationY<0)
         {
             wheelRotationY+=3;
         }
@@ -76,20 +59,20 @@ public class CarController : MonoBehaviour
         {
             if (theMesh.front)
             {
-                theMesh.leftWheel.transform.Rotate(Vector3.left, motor);
-                theMesh.rightWheel.transform.Rotate(Vector3.left, motor); 
+                theMesh.leftWheel.transform.Rotate(Vector3.left, HandleInput.inputH.motor);
+                theMesh.rightWheel.transform.Rotate(Vector3.left, HandleInput.inputH.motor); 
                 theMesh.leftWheel.transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, wheelRotationY, wheelRotationZ);
                 theMesh.rightWheel.transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, 180+wheelRotationY, wheelRotationZ);
             }
 
             if (theMesh.back)
             {
-                theMesh.leftWheel.transform.Rotate(Vector3.left, motor);
-                theMesh.rightWheel.transform.Rotate(Vector3.left, motor); 
+                theMesh.leftWheel.transform.Rotate(Vector3.left, HandleInput.inputH.motor);
+                theMesh.rightWheel.transform.Rotate(Vector3.left, HandleInput.inputH.motor); 
                 leftTirePos = theMesh.leftWheel.transform.position;
                 rightTirePos = theMesh.rightWheel.transform.position;
                 
-                if (steering >1.8|| steering<-1.8)
+                if (HandleInput.inputH.steering >1.8|| HandleInput.inputH.steering<-1.8)
                 {
                     if (skidLeft == null && skidRigh == null)
                     {
