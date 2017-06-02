@@ -4,8 +4,8 @@ using System.Collections;
 public class EnemyMovement: MonoBehaviour 
 {
     private Transform target;
-    private float height = 30f;
-    private float heightDamping = 1f;
+    [SerializeField]private float height;
+    [SerializeField]private float heightDamping;
 
     void Start()
     {
@@ -16,9 +16,7 @@ public class EnemyMovement: MonoBehaviour
     void LateUpdate()
     {
         if (!target)
-        {
             return;
-        }
         var wantedHeight = target.position.y + height;
         var currentHeight = transform.position.y;
 

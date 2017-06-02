@@ -5,10 +5,10 @@ namespace UnityStandardAssets.Utility
     public class SmoothFollow : MonoBehaviour
     {
         private Transform target;
-        private float distance = 10f;
-        private float height = 3f;
-        private float rotationDamping =5.0f; 
-        private float heightDamping = 5f;
+        [SerializeField]private float distance;
+        [SerializeField]private float height;
+        [SerializeField]private float rotationDamping; 
+        [SerializeField]private float heightDamping;
 
         void Start()
         {
@@ -19,9 +19,7 @@ namespace UnityStandardAssets.Utility
         void LateUpdate()
         {
             if (!target) 
-            {
-                return;
-            }
+               return;
 
             var wantedRotationAngle = target.eulerAngles.y;
             var wantedHeight = target.position.y + height;

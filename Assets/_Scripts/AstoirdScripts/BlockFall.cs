@@ -14,8 +14,6 @@ public class BlockFall:MonoBehaviour
     void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Room"))
-        {
             audioSource.PlayOneShot(fall);
-        }
     }
 }
