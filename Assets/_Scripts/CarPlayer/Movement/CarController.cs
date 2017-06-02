@@ -13,20 +13,19 @@ public class WheelMesh
 
 public class CarController : MonoBehaviour 
 {
-    public List<WheelMesh> wheelMeshes;
-    private Rigidbody rigidBody;
-
+    [SerializeField]private GameObject prefab;
+    [SerializeField]private List<WheelMesh> wheelMeshes;
     private float wheelRotationY;
-    private float wheelRotationZ = 0;
+    private float wheelRotationZ;
+    private int index;
+    private bool drive;
+    public bool Drive{get{return drive;} set{drive = value;}}
 
+    private Rigidbody rigidBody;
     private GameObject skidLeft;
     private GameObject skidRigh;
-    [SerializeField] private GameObject prefab;
     private Vector3 leftTirePos;
     private Vector3 rightTirePos;
-    private int index;
-
-    public bool drive;
 
     void Awake()
     {
@@ -36,83 +35,75 @@ public class CarController : MonoBehaviour
 
     void FixedUpdate()
     {
+        //Move car
+        rigidBody.MovePosition(this.transform.position + this.transform.forward * HandleInput.inputH.driving * Time.deltaTime);
 
-        rigidBody.MovePosition(transform.position + transform.forward * HandleInput.inputH.driving * Time.deltaTime);
-
-        wheelRotationY += HandleInput.inputH.steering * 4; 
-        wheelRotationY = Mathf.Clamp(wheelRotationY, -40, 40);
+        this.wheelRotationY += HandleInput.inputH.steering * 4; 
+        this.wheelRotationY = Mathf.Clamp(this.wheelRotationY, -40, 40);
            
-        if(HandleInput.inputH.driving!=0)
-        {
+        //Turn the car
+        if(HandleInput.inputH.driving != 0)
             rigidBody.transform.Rotate(0f, HandleInput.inputH.driving > 0 ? HandleInput.inputH.steering : -HandleInput.inputH.steering, 0f);
-        }
-        if(HandleInput.inputH.steering==0&&wheelRotationY>0)
-        {
-            wheelRotationY-=3;
-        }
-        if(HandleInput.inputH.steering==0&&wheelRotationY<0)
-        {
-            wheelRotationY+=3;
-        }
 
-        foreach(WheelMesh theMesh in wheelMeshes)
+        //Reset wheelrotation when not steering
+        if(HandleInput.inputH.steering == 0 && wheelRotationY != 0)
+            wheelRotationY = 0;
+         
+
+        foreach(WheelMesh currentWheel in wheelMeshes)
         {
-            if (theMesh.front)
+            if (currentWheel.front)
             {
-                theMesh.leftWheel.transform.Rotate(Vector3.left, HandleInput.inputH.motor);
-                theMesh.rightWheel.transform.Rotate(Vector3.left, HandleInput.inputH.motor); 
-                theMesh.leftWheel.transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, wheelRotationY, wheelRotationZ);
-                theMesh.rightWheel.transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, 180+wheelRotationY, wheelRotationZ);
+                currentWheel.leftWheel.transform.Rotate(Vector3.left, HandleInput.inputH.driving*-1);
+                currentWheel.rightWheel.transform.Rotate(Vector3.left, HandleInput.inputH.driving); 
+            }
+               
+            if (currentWheel.back)
+            {
+                currentWheel.leftWheel.transform.Rotate(Vector3.left, HandleInput.inputH.driving*-1);
+                currentWheel.rightWheel.transform.Rotate(Vector3.left, HandleInput.inputH.driving); 
+                leftTirePos = currentWheel.leftWheel.transform.position;
+                rightTirePos = currentWheel.rightWheel.transform.position;
+            }
+                
+            if (HandleInput.inputH.steering < 1.8f && HandleInput.inputH.steering > -1.8f)
+            {
+                skidLeft = null;
+                skidRigh = null;
+                continue;
             }
 
-            if (theMesh.back)
+            if (skidLeft == null && skidRigh == null && HandleInput.inputH.driving > 0)
             {
-                theMesh.leftWheel.transform.Rotate(Vector3.left, HandleInput.inputH.motor);
-                theMesh.rightWheel.transform.Rotate(Vector3.left, HandleInput.inputH.motor); 
-                leftTirePos = theMesh.leftWheel.transform.position;
-                rightTirePos = theMesh.rightWheel.transform.position;
-                
-                if (HandleInput.inputH.steering >1.8|| HandleInput.inputH.steering<-1.8)
+                skidLeft = (GameObject)Instantiate(prefab, leftTirePos, Quaternion.identity); 
+                skidRigh = (GameObject)Instantiate(prefab, rightTirePos, Quaternion.identity);
+
+                index = 0;
+                for (int i = 0; i < 50; i++)
                 {
-                    if (skidLeft == null && skidRigh == null)
-                    {
-                        skidLeft = (GameObject)Instantiate(prefab, leftTirePos, Quaternion.identity); 
-                        skidRigh = (GameObject)Instantiate(prefab, rightTirePos, Quaternion.identity);
-
-                        index = 0;
-                        for (int i = 0; i < 50; i++)
-                        {
-                            skidLeft.GetComponent<LineRenderer>().SetPosition(i, leftTirePos);
-                            skidRigh.GetComponent<LineRenderer>().SetPosition(i, rightTirePos);
-                        }
-                    }
-                    else
-                    {
-                        index++;
-                        for (int i = index; i < 50; i++)
-                        {
-                            skidLeft.GetComponent<LineRenderer>().SetPosition(i, leftTirePos);
-                            skidRigh.GetComponent<LineRenderer>().SetPosition(i, rightTirePos);
-                        }
-
-                        if (index == 49)
-                        {
-                            skidLeft = (GameObject)Instantiate(prefab, leftTirePos, Quaternion.identity); 
-                            skidRigh = (GameObject)Instantiate(prefab, rightTirePos, Quaternion.identity);
-
-                            index = 0;
-                            for (int i = 0; i < 50; i++)
-                            {
-                                skidLeft.GetComponent<LineRenderer>().SetPosition(i, leftTirePos);
-                                skidRigh.GetComponent<LineRenderer>().SetPosition(i, rightTirePos);
-                            }     
-                        }
-                    }
+                    skidLeft.GetComponent<LineRenderer>().SetPosition(i, leftTirePos);
+                    skidRigh.GetComponent<LineRenderer>().SetPosition(i, rightTirePos);
                 }
-                else
+                continue;
+             }
+
+             index++;
+             for (int i = index; i < 50; i++)
+             {
+                skidLeft.GetComponent<LineRenderer>().SetPosition(i, leftTirePos);
+                skidRigh.GetComponent<LineRenderer>().SetPosition(i, rightTirePos);
+             }
+
+             if (index == 49)
+             {
+                skidLeft = (GameObject)Instantiate(prefab, leftTirePos, Quaternion.identity); 
+                skidRigh = (GameObject)Instantiate(prefab, rightTirePos, Quaternion.identity);
+                index = 0;
+
+                for (int i = 0; i < 50; i++)
                 {
-                    skidLeft = null;
-                    skidRigh = null;
+                    skidLeft.GetComponent<LineRenderer>().SetPosition(i, leftTirePos);
+                    skidRigh.GetComponent<LineRenderer>().SetPosition(i, rightTirePos);
                 }
             }
         }

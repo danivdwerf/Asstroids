@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class BlockFall:MonoBehaviour 
+public class BlockCollision : MonoBehaviour 
 {
     private AudioSource audioSource;
     [SerializeField] private AudioClip fall;

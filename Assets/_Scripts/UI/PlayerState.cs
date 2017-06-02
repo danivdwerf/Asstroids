@@ -30,7 +30,7 @@ public class PlayerState : MonoBehaviour
         player.tag = "Player2";
         Timer timer = GameObject.FindObjectOfType<Timer>();
         timer.gameTime = 0;
-        car.drive = true;
+        car.Drive = true;
 		timeStamp.Player2Start ();
 	}
 }

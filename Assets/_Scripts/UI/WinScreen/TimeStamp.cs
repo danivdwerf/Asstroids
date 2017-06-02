@@ -52,7 +52,7 @@ public class TimeStamp : MonoBehaviour
             HandleInput.inputH.motor = 0;
             HandleInput.inputH.steering = 0;
             HandleInput.inputH.reverse = 0;
-            player.drive = false;
+            player.Drive = false;
 		}
 		if (other.CompareTag("Player2")) 
 		{
@@ -60,7 +60,7 @@ public class TimeStamp : MonoBehaviour
 			timeStamp4 = Time.time;
 			player2Time = timeStamp4 - timeStamp3;
 			showScore.Finnish (player1Time, player2Time); 
-            player.drive = false;
+            player.Drive = false;
             player.gameObject.transform.position = carPos;
             player.gameObject.transform.rotation = carRot;
 		}

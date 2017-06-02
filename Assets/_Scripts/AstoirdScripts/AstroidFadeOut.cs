@@ -3,8 +3,5 @@ using System.Collections;
 
 public class AstroidFadeOut : MonoBehaviour
 {
-    void Start()
-    {
-        Destroy(gameObject, 8f);
-    }
+    void Start(){Destroy(this.gameObject, 8f);}
 }
