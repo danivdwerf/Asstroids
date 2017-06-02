@@ -3,21 +3,19 @@ using System.Collections;
 
 public class HandleInput : MonoBehaviour 
 {
-    public static HandleInput inputH;
-    public float motor;
-    public float reverse;
-    public float steering;
-    public float driving;
+    private float motor;
+    public float Motor{get{return motor;} set{motor = value;}}
+    private float reverse;
+    public float Reverse{set{reverse = value;}}
+    private float steering;
+    public float Steering{get{return steering;} set{steering = value;}}
+    private float driving;
+    public float Driving{get{return driving;}}
 
     private float right;
     private float left;
     private float maxTorque=10f;
     private float maxSteeringAngle = 2f;
-	
-    void Awake () 
-    {
-        inputH = this;
-	}
 
 	void FixedUpdate () 
     {

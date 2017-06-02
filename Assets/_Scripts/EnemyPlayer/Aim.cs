@@ -11,7 +11,7 @@ public class Aim : MonoBehaviour
     void Update()
     {
         Vector3 temp = Input.mousePosition;
-        temp.z = 10f;
+        temp.z = 10;
         this.transform.position = Camera.main.ScreenToWorldPoint(temp);
     }
 }

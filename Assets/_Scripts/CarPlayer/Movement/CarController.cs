@@ -22,6 +22,7 @@ public class CarController : MonoBehaviour
     public bool Drive{get{return drive;} set{drive = value;}}
 
     private Rigidbody rigidBody;
+    private HandleInput inputH;
     private GameObject skidLeft;
     private GameObject skidRigh;
     private Vector3 leftTirePos;
@@ -29,24 +30,25 @@ public class CarController : MonoBehaviour
 
     void Awake()
     {
-        rigidBody = GetComponent<Rigidbody>();
+        rigidBody = this.GetComponent<Rigidbody>();
+        inputH = this.GetComponent<HandleInput>();
         drive = true;
     }
 
     void FixedUpdate()
     {
         //Move car
-        rigidBody.MovePosition(this.transform.position + this.transform.forward * HandleInput.inputH.driving * Time.deltaTime);
+        rigidBody.MovePosition(this.transform.position + this.transform.forward * inputH.Driving * Time.deltaTime);
 
-        this.wheelRotationY += HandleInput.inputH.steering * 4; 
+        this.wheelRotationY += inputH.Steering * 4; 
         this.wheelRotationY = Mathf.Clamp(this.wheelRotationY, -40, 40);
            
         //Turn the car
-        if(HandleInput.inputH.driving != 0)
-            rigidBody.transform.Rotate(0f, HandleInput.inputH.driving > 0 ? HandleInput.inputH.steering : -HandleInput.inputH.steering, 0f);
+        if(inputH.Driving != 0)
+            rigidBody.transform.Rotate(0f, inputH.Driving > 0 ? inputH.Steering : inputH.Steering, 0f);
 
         //Reset wheelrotation when not steering
-        if(HandleInput.inputH.steering == 0 && wheelRotationY != 0)
+        if(inputH.Steering == 0 && wheelRotationY != 0)
             wheelRotationY = 0;
          
 
@@ -54,26 +56,26 @@ public class CarController : MonoBehaviour
         {
             if (currentWheel.front)
             {
-                currentWheel.leftWheel.transform.Rotate(Vector3.left, HandleInput.inputH.driving*-1);
-                currentWheel.rightWheel.transform.Rotate(Vector3.left, HandleInput.inputH.driving); 
+                currentWheel.leftWheel.transform.Rotate(Vector3.left, inputH.Driving*-1);
+                currentWheel.rightWheel.transform.Rotate(Vector3.left, inputH.Driving); 
             }
                
             if (currentWheel.back)
             {
-                currentWheel.leftWheel.transform.Rotate(Vector3.left, HandleInput.inputH.driving*-1);
-                currentWheel.rightWheel.transform.Rotate(Vector3.left, HandleInput.inputH.driving); 
+                currentWheel.leftWheel.transform.Rotate(Vector3.left, inputH.Driving*-1);
+                currentWheel.rightWheel.transform.Rotate(Vector3.left, inputH.Driving); 
                 leftTirePos = currentWheel.leftWheel.transform.position;
                 rightTirePos = currentWheel.rightWheel.transform.position;
             }
                 
-            if (HandleInput.inputH.steering < 1.8f && HandleInput.inputH.steering > -1.8f)
+            if (inputH.Steering < 1.8f && inputH.Steering > -1.8f)
             {
                 skidLeft = null;
                 skidRigh = null;
                 continue;
             }
 
-            if (skidLeft == null && skidRigh == null && HandleInput.inputH.driving > 0)
+            if (skidLeft == null && skidRigh == null && inputH.Driving > 0)
             {
                 skidLeft = (GameObject)Instantiate(prefab, leftTirePos, Quaternion.identity); 
                 skidRigh = (GameObject)Instantiate(prefab, rightTirePos, Quaternion.identity);

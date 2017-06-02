@@ -4,7 +4,7 @@ namespace UnityStandardAssets.Utility
 {
     public class SmoothFollow : MonoBehaviour
     {
-        private Transform target;
+        [SerializeField]private Transform target;
         [SerializeField]private float distance;
         [SerializeField]private float height;
         [SerializeField]private float rotationDamping; 
@@ -13,7 +13,7 @@ namespace UnityStandardAssets.Utility
         void Start()
         {
             PlayerState playerState = GameObject.FindObjectOfType<PlayerState> ();
-            target = playerState.player.transform;
+            target = playerState.Player.transform;
         }
 
         void LateUpdate()

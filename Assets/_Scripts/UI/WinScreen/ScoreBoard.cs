@@ -9,7 +9,7 @@ public class ScoreBoard : MonoBehaviour
 
 	public void NextRace()
 	{
-		PlayerState playerState=GameObject.FindObjectOfType<PlayerState>();
+		PlayerState playerState = GameObject.FindObjectOfType<PlayerState>();
 		playerState.SetPlayer2(); 
         scorePanel.SetActive(false);
 		Cursor.visible = false;

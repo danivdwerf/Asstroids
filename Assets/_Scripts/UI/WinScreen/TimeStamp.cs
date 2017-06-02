@@ -15,6 +15,7 @@ public class TimeStamp : MonoBehaviour
 
     [SerializeField] private Transform location;
     private CarController player;
+    private HandleInput inputH;
     private Vector3 carPos; 
     private Quaternion carRot;
 
@@ -23,6 +24,7 @@ public class TimeStamp : MonoBehaviour
 		player1Time = 0;
 		player2Time = 0;
         player = GameObject.FindObjectOfType<CarController>();
+        inputH = GameObject.FindObjectOfType<HandleInput>();
         carPos = new Vector3 (location.transform.position.x, location.transform.position.y, location.transform.position.z);
         carRot = new Quaternion (location.transform.rotation.x, location.transform.rotation.y, location.transform.rotation.z,0f);
 	}
@@ -49,9 +51,9 @@ public class TimeStamp : MonoBehaviour
                 
             player.gameObject.transform.position = carPos;
             player.gameObject.transform.rotation = carRot;
-            HandleInput.inputH.motor = 0;
-            HandleInput.inputH.steering = 0;
-            HandleInput.inputH.reverse = 0;
+            inputH.Motor = 0;
+            inputH.Steering = 0;
+            inputH.Reverse = 0;
             player.Drive = false;
 		}
 		if (other.CompareTag("Player2")) 

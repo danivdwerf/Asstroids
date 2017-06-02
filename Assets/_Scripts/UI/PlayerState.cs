@@ -3,7 +3,8 @@ using System.Collections;
 
 public class PlayerState : MonoBehaviour 
 {
-	public GameObject player;
+    [SerializeField]private GameObject player;
+    public GameObject Player{get{return player;}}
     [SerializeField]private GameObject spawnPrefab; 
 	public Transform startLocation;
 	private CarController car;

@@ -1,16 +1,16 @@
-﻿ using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class EnemyMovement: MonoBehaviour 
 {
-    private Transform target;
+    [SerializeField]private Transform target;
     [SerializeField]private float height;
     [SerializeField]private float heightDamping;
 
     void Start()
     {
         PlayerState playerState = GameObject.FindObjectOfType<PlayerState>();
-        target = playerState.player.transform;
+        target = playerState.Player.transform;
     }
 
     void LateUpdate()
